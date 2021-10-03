@@ -1,0 +1,37 @@
+@import 'styles/colors';
+
+.button {
+    width: 100%;
+    display: block;
+
+    a,
+    button {
+        display: block;
+        text-align: center;
+        width: 100%;
+        background: $main-red;
+        color: $white;
+        padding: 0 3.5rem;
+        border-radius: 0.25rem;
+        transition: background ease 0.25s;
+        border: none;
+        font: inherit;
+        font-weight: 900;
+        box-shadow: 0 4px 14px 0 rgb(241 9 9 / 39%);
+        height: 2.81rem;
+        line-height: 2.8rem;
+
+        &:hover {
+            background: darken($main-red, 10%);
+            cursor: pointer;
+        }
+        &.small {
+            padding: 0.5rem;
+            height: inherit;
+            line-height: inherit;
+        }
+        &.no-shadow {
+            box-shadow: none;
+        }
+    }
+}

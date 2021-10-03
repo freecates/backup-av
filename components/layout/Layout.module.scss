@@ -1,0 +1,26 @@
+@import 'styles/colors';
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 65rem;
+    padding: 0.5rem 1rem;
+
+    @media (min-width: 768px) {
+        padding: 2rem 1rem;
+    }
+}
+
+.nav-wrapper {
+    @media (min-width: 768px) {
+        padding-left: 3vw;
+        padding-right: 3vw;
+        position: fixed;
+        width: 100%;
+        border-bottom: 1px solid $secondary-red;
+        margin-bottom: 3.33333em;
+        padding-bottom: 1em;
+        padding-top: 1em;
+        background: $white;
+    }
+}

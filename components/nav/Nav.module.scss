@@ -1,0 +1,92 @@
+@import 'styles/colors';
+
+.nav {
+    max-width: 100%;
+    margin: 0 auto;
+    text-transform: uppercase;
+    background: $white;
+
+    .main {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 2rem 0;
+        background: $white;
+        z-index: 3000;
+
+        @media (min-width: 768px) {
+            padding: 0;
+            flex-direction: row;
+        }
+
+        li {
+            list-style-type: none;
+            max-width: 100%;
+
+            .secondary {
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: row;
+                align-items: center;
+                margin: 0;
+                background: $white;
+                z-index: 3000;
+                padding: 0;
+                flex-wrap: wrap;
+
+                @media (min-width: 768px) {
+                    margin: 0 0 0 1.5rem;
+                }
+
+                li {
+                    margin: 0 0.5rem;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    @media (min-width: 768px) {
+                        margin: 0 1rem;
+                    }
+
+                    &.active {
+                        a {
+                            color: $main-red;
+                            border-bottom: 0.25rem solid;
+                        }
+                    }
+
+                    a {
+                        padding: 0.25rem 0;
+                        transition: color ease 1s;
+                        font-size: 0.65rem;
+
+                        @media (min-width: 1024px) {
+                            font-size: 1rem;
+                        }
+
+                        &:hover {
+                            color: $main-red;
+                            border-bottom: 0.25rem solid;
+                        }
+                    }
+                }
+            }
+        }
+        .routes-wrapper {
+            @media (min-width: 768px) {
+                margin-left: auto;
+            }
+        }
+        .contact-wrapper {
+            font-size: 0.65rem;
+            @media (min-width: 768px) {
+                margin-left: 1rem;
+            }
+        }
+    }
+}
