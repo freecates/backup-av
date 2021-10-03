@@ -3,10 +3,15 @@ import api from '@libs/api.js';
 import styles from '../styles/Home.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
+import { IRoute } from '@interfaces/index';
 
 const wordPressApiUrl = process.env.WORDPRESS_API_URL;
 
-const Home: NextPage = ({ routes }) => {
+interface Props {
+    routes: IRoute[];
+};
+
+const Home: NextPage<Props> = ({ routes }) => {
     return (
         <Layout
             titlePage={'siteTitle'}
