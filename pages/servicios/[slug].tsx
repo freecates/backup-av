@@ -51,8 +51,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const [features] = await Promise.all([api.features.getData()]);
+
     const feature = features.filter(
-        (f: { url: string | string[] | undefined }) => f.url === params.slug,
+        (f: { url: string | string[] | undefined }) => f.url === params!.slug,
     );
 
     return {
