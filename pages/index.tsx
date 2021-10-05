@@ -52,7 +52,7 @@ const Home: NextPage<Props> = ({ routes, backup, features }) => {
                             <div className={styles['grid']}>
                                 {features.map((f) => (
                                     <div key={f.title} className={styles['card']}>
-                                        <p>{f.title}</p>
+                                        <h3>{f.title}</h3>
                                         <ul>
                                             {f.featureList.map((l) => (
                                                 <li key={l}>{l}</li>
