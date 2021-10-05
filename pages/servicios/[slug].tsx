@@ -44,14 +44,16 @@ const Servicio: NextPage<Props> = ({ feature }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const [features] = await Promise.all([api.features.getData()]);
-    const paths = features.map((f) => `/servicios/${f.url}`);
+    const paths = features.map((f: { url: any }) => `/servicios/${f.url}`);
 
     return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const [features] = await Promise.all([api.features.getData()]);
-    const feature = features.filter((f) => f.url === params.slug);
+    const feature = features.filter(
+        (f: { url: string | string[] | undefined }) => f.url === params.slug,
+    );
 
     return {
         props: {
