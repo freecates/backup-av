@@ -60,9 +60,11 @@ const Layout: React.FC<Props> = ({
             />
             <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='true' />
         </Head>
-        <div className={styles['nav-wrapper']}>
-            <Nav title={titlePage} navRoutes={navRoutes} />
-        </div>
+        {navRoutes && navRoutes.length ? (
+            <div className={styles['nav-wrapper']}>
+                <Nav title={titlePage} navRoutes={navRoutes} />
+            </div>
+        ) : null}
         <div>{children}</div>
         <Footer />
     </>

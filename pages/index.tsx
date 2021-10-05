@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 import api from '@libs/api.js';
-import styles from '../styles/Home.module.scss';
+import styles from '@styles/Home.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
 import { IRoute, IMeta } from '@interfaces/index';
@@ -15,10 +16,11 @@ interface Props {
             description: string;
         };
     };
-    features: [{ title: string; featureList: string[] }];
+    features: [{ title: string; featureList: string[]; url: string }];
 }
 
 const Home: NextPage<Props> = ({ routes, backup, features }) => {
+    const router = useRouter();
     return (
         <Layout
             titlePage={backup.meta.title}
@@ -35,7 +37,7 @@ const Home: NextPage<Props> = ({ routes, backup, features }) => {
                         dangerouslySetInnerHTML={{
                             __html: backup.content.description,
                         }}
-                    ></p>
+                    />
                     <div className={styles['button-wrapper']}>
                         <Button name={'Contacta'} isAnchor url={'/contacta'} />
                     </div>
@@ -51,7 +53,12 @@ const Home: NextPage<Props> = ({ routes, backup, features }) => {
                             <p>Líderes del sector confían en nuestros servicios</p>
                             <div className={styles['grid']}>
                                 {features.map((f) => (
-                                    <div key={f.title} className={styles['card']}>
+                                    <div
+                                        title={`Ir a ${f.title}`}
+                                        key={f.title}
+                                        className={styles['card']}
+                                        onClick={() => router.push(`/servicios/${f.url}`)}
+                                    >
                                         <h3>{f.title}</h3>
                                         <ul>
                                             {f.featureList.map((l) => (

@@ -107,7 +107,7 @@
     transition: color 0.15s ease, border-color 0.15s ease;
     width: 30%;
     height: auto;
-    min-height: 25vh;
+    min-height: 30vh;
 }
 
 .card:hover,
@@ -116,6 +116,7 @@
     color: $main-red;
     border-color: $main-red;
     box-shadow: 0 8px 30px rgba($main-red,0.12);
+    cursor: pointer;
 }
 
 .card h2 {
