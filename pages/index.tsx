@@ -15,9 +15,10 @@ interface Props {
             description: string;
         };
     };
+    features: [{ title: string; featureList: string[] }];
 }
 
-const Home: NextPage<Props> = ({ routes, backup }) => {
+const Home: NextPage<Props> = ({ routes, backup, features }) => {
     return (
         <Layout
             titlePage={backup.meta.title}
@@ -47,9 +48,18 @@ const Home: NextPage<Props> = ({ routes, backup }) => {
                                 </span>
                                 ?
                             </h2>
-                            <p>Líderes del sector confían en nosotros</p>
+                            <p>Líderes del sector confían en nuestros servicios</p>
                             <div className={styles['grid']}>
-                                <div className={styles['card']}>Hello Card</div>
+                                {features.map((f) => (
+                                    <div key={f.title} className={styles['card']}>
+                                        <p>{f.title}</p>
+                                        <ul>
+                                            {f.featureList.map((l) => (
+                                                <li key={l}>{l}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -65,12 +75,17 @@ export const getStaticProps: GetStaticProps = async () => {
     });
     const wpPageData = await res.json();
 
-    const [backup, routes] = await Promise.all([api.backup.getData(), api.routes.getData()]);
+    const [backup, features, routes] = await Promise.all([
+        api.backup.getData(),
+        api.features.getData(),
+        api.routes.getData(),
+    ]);
 
     return {
         props: {
             wpPageData: wpPageData,
             backup: { ...backup[0] },
+            features,
             routes,
         },
         revalidate: 1,
