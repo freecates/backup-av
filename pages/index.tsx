@@ -3,36 +3,55 @@ import api from '@libs/api.js';
 import styles from '../styles/Home.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
-import { IRoute } from '@interfaces/index';
+import { IRoute, IMeta } from '@interfaces/index';
 
 const wordPressApiUrl = process.env.WORDPRESS_API_URL;
 
 interface Props {
     routes: IRoute[];
-};
+    backup: {
+        meta: IMeta;
+        content: {
+            description: string;
+        };
+    };
+}
 
-const Home: NextPage<Props> = ({ routes }) => {
+const Home: NextPage<Props> = ({ routes, backup }) => {
     return (
         <Layout
-            titlePage={'siteTitle'}
+            titlePage={backup.meta.title}
             navRoutes={routes}
-            pageTitle={'backupTitle'}
-            pageDescription={'backupDescription'}
+            pageTitle={backup.meta.pageTitle}
+            pageDescription={backup.meta.pageDescription}
             home
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>Integración de sistemas audiovisuales</h1>
-                    <p className={styles.description}>
-                        En{' '}
-                        <span className={'backup'}>
-                            BACK<span>UP</span>
-                        </span>{' '}
-                        nos focalizamos en la integración de sistemas y servicios audiovisuales para
-                        tu empresa y en una amplia variedad de espacios. Nos vala una trayectoria solvente de más de 20 años.
-                    </p>
+                    <h1 className={styles.title}>{backup.meta.title}</h1>
+                    <p
+                        className={styles.description}
+                        dangerouslySetInnerHTML={{
+                            __html: backup.content.description,
+                        }}
+                    ></p>
                     <div className={styles['button-wrapper']}>
                         <Button name={'Contacta'} isAnchor url={'/contacta'} />
+                    </div>
+                    <div role='region' aria-labelledby='features'>
+                        <div className={'wrapper'}>
+                            <h2>
+                                ¿Por qué{' '}
+                                <span className={'backup'}>
+                                    BACK<span>UP</span>
+                                </span>
+                                ?
+                            </h2>
+                            <p>Líderes del sector confían en nosotros</p>
+                            <div className={styles['grid']}>
+                                <div className={styles['card']}>Hello Card</div>
+                            </div>
+                        </div>
                     </div>
                 </main>
             </div>
@@ -46,11 +65,12 @@ export const getStaticProps: GetStaticProps = async () => {
     });
     const wpPageData = await res.json();
 
-    const [routes] = await Promise.all([api.routes.getData()]);
+    const [backup, routes] = await Promise.all([api.backup.getData(), api.routes.getData()]);
 
     return {
         props: {
             wpPageData: wpPageData,
+            backup: { ...backup[0] },
             routes,
         },
         revalidate: 1,

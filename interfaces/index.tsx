@@ -3,3 +3,9 @@ export interface IRoute {
     name: string;
     route: string;
 }
+
+export interface IMeta {
+    title: string;
+    pageTitle: string;
+    pageDescription: string;
+}

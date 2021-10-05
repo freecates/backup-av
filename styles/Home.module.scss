@@ -1,3 +1,5 @@
+@import 'styles/colors';
+
 // .container {
 //     padding: 0 0.5rem;
 //     display: flex;
@@ -12,7 +14,7 @@
     margin: 0 auto;
     max-width: 75rem;
     padding: 0 1rem;
-    background: white;
+    background: $white;
     &.noPadding {
         padding: 0;
     }
@@ -41,7 +43,7 @@
 }
 
 .title a {
-    color: #0070f3;
+    color: $main-red;
     text-decoration: none;
 }
 
@@ -109,8 +111,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-    color: #0070f3;
-    border-color: #0070f3;
+    color: $main-red;
+    border-color: $main-red;
 }
 
 .card h2 {
