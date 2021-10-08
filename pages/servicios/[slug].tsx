@@ -4,14 +4,21 @@ import styles from '@styles/Home.module.scss';
 import Button from '@components/button';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import Image from 'next/image';
-import integracion from '@public/servicios-integracion-bg.jpg';
+
+const staticDataUrl = 'https://backup-av-data.vercel.app';
 
 interface Props {
-    feature: { title: string; featureList: string[]; claim: string; url: string };
+    feature: {
+        title: string;
+        featureList: string[];
+        claim: string;
+        url: string;
+        featureImage: { name: string; url: string; width: number; height: number };
+    };
 }
 
 const Servicio: NextPage<Props> = ({ feature }) => {
-    const { title, featureList, claim } = feature;
+    const { title, featureList, claim, featureImage } = feature;
     return (
         <Layout pageTitle={title} pageDescription={title} titlePage={title} navRoutes={[]}>
             <div className={styles.container}>
@@ -30,14 +37,15 @@ const Servicio: NextPage<Props> = ({ feature }) => {
                     </div>
                 </main>
             </div>
-            <Image
-                src={integracion}
-                alt={title}
-                width={2135}
-                height={1474}
-                layout={'responsive'}
-                placeholder={'blur'}
-            />
+            <div className={styles['image-wrapper']}>
+                <Image
+                    src={`${staticDataUrl}/assets/img/${featureImage.url}`}
+                    alt={featureImage.name}
+                    width={featureImage.width}
+                    height={featureImage.height}
+                    layout={'responsive'}
+                />
+            </div>
         </Layout>
     );
 };
