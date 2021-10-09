@@ -4,7 +4,8 @@ import api from '@libs/api.js';
 import styles from '@styles/Home.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
-import { IRoute, IMeta } from '@interfaces/index';
+import { IRoute, IMeta, IImage } from '@interfaces/index';
+import ImageGrid from '@components/ImageGrid';
 
 const wordPressApiUrl = process.env.WORDPRESS_API_URL;
 
@@ -17,9 +18,10 @@ interface Props {
         };
     };
     features: [{ title: string; featureList: string[]; url: string }];
+    clients: [{name: string; img: IImage}];
 }
 
-const Home: NextPage<Props> = ({ routes, backup, features }) => {
+const Home: NextPage<Props> = ({ routes, backup, features, clients }) => {
     const router = useRouter();
     return (
         <Layout
@@ -68,6 +70,7 @@ const Home: NextPage<Props> = ({ routes, backup, features }) => {
                                     </div>
                                 ))}
                             </div>
+                            <ImageGrid data={clients} imageType={'gray'} />
                         </div>
                     </div>
                 </main>
@@ -82,10 +85,11 @@ export const getStaticProps: GetStaticProps = async () => {
     });
     const wpPageData = await res.json();
 
-    const [backup, features, routes] = await Promise.all([
+    const [backup, features, routes, clients] = await Promise.all([
         api.backup.getData(),
         api.features.getData(),
         api.routes.getData(),
+        api.clients.getData(),
     ]);
 
     return {
@@ -94,6 +98,7 @@ export const getStaticProps: GetStaticProps = async () => {
             backup: { ...backup[0] },
             features,
             routes,
+            clients,
         },
         revalidate: 1,
     };

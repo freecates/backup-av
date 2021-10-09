@@ -1,0 +1,24 @@
+.grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding: 0;
+
+    @media (max-width: 600px) {
+        width: 100%;
+        flex-direction: column;
+    }
+    li {
+        list-style-type: none;
+    }
+    .gray {
+        max-width: 240px;
+        width: 100%;
+    }
+    .color {
+        max-width: 320px;
+        width: 100%;
+    }
+}

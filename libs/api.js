@@ -22,6 +22,13 @@ const api = {
       return data;
     }
   },
+  clients: {
+    async getData() {
+      const response = await fetch(`${staticDataUrl}/clients.json`);
+      const data = await response.json();
+      return data;
+    }
+  },
 };
 
 

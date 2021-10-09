@@ -1,0 +1,36 @@
+import Image from 'next/image';
+import styles from './ImageGrid.module.scss';
+import { IImage } from '@interfaces/index';
+
+const staticDataUrl = 'https://backup-av-data.vercel.app';
+
+type ImageGridProps = {
+    data: [
+        {
+            name: string;
+            img: IImage;
+        },
+    ];
+    imageType: string;
+};
+
+const ImageGrid: React.FC<ImageGridProps> = ({ data, imageType }) => {
+    return (
+        <ul className={styles.grid}>
+            {data.map((d) => (
+                <li key={d.name} className={styles[imageType]}>
+                    <Image
+                        src={`${staticDataUrl}${d.img[imageType].url}`}
+                        alt={d.name}
+                        width={d.img[imageType].width}
+                        height={d.img[imageType].height}
+                        layout={'responsive'}
+                        quality={100}
+                    />
+                </li>
+            ))}
+        </ul>
+    );
+};
+
+export default ImageGrid;

@@ -9,3 +9,10 @@ export interface IMeta {
     pageTitle: string;
     pageDescription: string;
 }
+
+export interface IImage {
+    url: string;
+    width: number;
+    height: number;
+    [key: string] : any;
+}
