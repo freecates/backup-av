@@ -21,7 +21,7 @@ const Clientes: NextPage<Props> = ({ clients, routes }) => {
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>Ellos no han dado su confianza</h1>
+                    <h1 className={styles.title}>Ellos nos han dado su confianza</h1>
                     <p className={styles.description}>Esperamos poder contar con la tuya</p>
                     <div className={styles['button-wrapper']}>
                         <Button name={'Contacta'} isAnchor url={'/contacta'} />
