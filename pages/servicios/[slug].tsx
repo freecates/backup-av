@@ -20,7 +20,7 @@ interface Props {
 const Servicio: NextPage<Props> = ({ feature }) => {
     const { title, featureList, claim, featureImage } = feature;
     return (
-        <Layout pageTitle={title} pageDescription={title} titlePage={title} navRoutes={[]}>
+        <Layout pageTitle={title} pageDescription={title} siteTitle={title} navRoutes={[]}>
             <div className={styles.container}>
                 <main className={styles.main}>
                     <h1 className={styles.title}>{title}</h1>

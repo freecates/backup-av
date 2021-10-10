@@ -8,7 +8,7 @@ import styles from './Layout.module.scss';
 type Props = {
     home?: boolean;
     pageTitle: string;
-    titlePage: string;
+    siteTitle: string;
     pageDescription: string;
     children: any;
     navRoutes: IRoute[];
@@ -17,7 +17,7 @@ type Props = {
 const Layout: React.FC<Props> = ({
     home,
     pageTitle,
-    titlePage,
+    siteTitle,
     pageDescription,
     children,
     navRoutes,
@@ -33,10 +33,10 @@ const Layout: React.FC<Props> = ({
             <meta name='theme-color' content='#ffffff' />
             <link rel='apple-touch-icon' href='/icons/icon-192x192.png'></link>
             <link rel='manifest' href='/manifest.json' />
-            <title>{!home ? `${pageTitle} | ${titlePage}` : pageTitle}</title>
+            <title>{!home ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
             <meta
                 name='description'
-                content={!home ? `${pageDescription} | ${titlePage}` : pageDescription}
+                content={!home ? `${pageDescription} | ${siteTitle}` : pageDescription}
             />
             <link rel='icon' href='/favicon.ico' />
 
@@ -44,25 +44,25 @@ const Layout: React.FC<Props> = ({
             <meta name='twitter:site' content='regadorafest' />
             <meta
                 name='twitter:creator'
-                content='Backup Audiovisuals - La ciutat de les alternatives'
+                content='Backup Audiovisuals - Integración de sistemas audiovisuales'
             />
             <meta
                 name='twitter:title'
-                content={!home ? `${pageTitle} | ${titlePage}` : pageTitle}
+                content={!home ? `${pageTitle} | ${siteTitle}` : siteTitle}
             />
             <meta
                 name='twitter:description'
-                content={!home ? `${pageDescription} | ${titlePage}` : pageDescription}
+                content={!home ? `${pageDescription} | ${siteTitle}` : pageDescription}
             />
             <meta
                 name='twitter:image:src'
-                content={'https://regadora.cat/tampo-color-regadora.jpg'}
+                content={'https://regadora.cat/backup-av-site-image.jpg'}
             />
             <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='true' />
         </Head>
         {navRoutes && navRoutes.length ? (
             <div className={styles['nav-wrapper']}>
-                <Nav title={titlePage} navRoutes={navRoutes} />
+                <Nav title={siteTitle} navRoutes={navRoutes} />
             </div>
         ) : null}
         <div>{children}</div>

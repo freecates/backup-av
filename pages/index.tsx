@@ -1,4 +1,5 @@
 import type { GetStaticProps, NextPage } from 'next';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
@@ -7,7 +8,7 @@ import Button from '@components/button';
 import { IRoute, IMeta, IImage } from '@interfaces/index';
 import ImageGrid from '@components/ImageGrid';
 
-const wordPressApiUrl = process.env.WORDPRESS_API_URL;
+const staticDataUrl = 'https://backup-av-data.vercel.app';
 
 interface Props {
     routes: IRoute[];
@@ -16,28 +17,30 @@ interface Props {
         content: {
             description: string;
         };
+        featureImage: { name: string; url: string; width: number; height: number };
     };
     features: [{ title: string; featureList: string[]; url: string }];
     clients: [{name: string; img: IImage}];
 }
 
 const Home: NextPage<Props> = ({ routes, backup, features, clients }) => {
+    const {meta, content, featureImage} = backup;
     const router = useRouter();
     return (
         <Layout
-            titlePage={backup.meta.title}
+            siteTitle={meta.pageTitle}
             navRoutes={routes}
-            pageTitle={backup.meta.pageTitle}
-            pageDescription={backup.meta.pageDescription}
+            pageTitle={''}
+            pageDescription={meta.pageDescription}
             home
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>{backup.meta.title}</h1>
+                    <h1 className={styles.title}>{meta.title}</h1>
                     <p
                         className={styles.description}
                         dangerouslySetInnerHTML={{
-                            __html: backup.content.description,
+                            __html: content.description,
                         }}
                     />
                     <div className={styles['button-wrapper']}>
@@ -75,15 +78,20 @@ const Home: NextPage<Props> = ({ routes, backup, features, clients }) => {
                     </div>
                 </main>
             </div>
+            <div className={styles['image-wrapper']}>
+                <Image
+                    src={`${staticDataUrl}/assets/img/${featureImage.url}`}
+                    alt={featureImage.name}
+                    width={featureImage.width}
+                    height={featureImage.height}
+                    layout={'responsive'}
+                />
+            </div>
         </Layout>
     );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const res = await fetch(`${wordPressApiUrl}/wp/v2/pages?per_page=100&_embed`, {
-        headers: { 'Cache-Control': 'no-cache' },
-    });
-    const wpPageData = await res.json();
 
     const [backup, features, routes, clients] = await Promise.all([
         api.backup.getData(),
@@ -94,7 +102,6 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
         props: {
-            wpPageData: wpPageData,
             backup: { ...backup[0] },
             features,
             routes,

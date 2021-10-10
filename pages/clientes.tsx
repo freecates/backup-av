@@ -16,7 +16,7 @@ const Clientes: NextPage<Props> = ({ clients, routes }) => {
         <Layout
             pageTitle={'Clientes'}
             pageDescription={'Clientes Backup AV'}
-            titlePage={'Clientes Backup AV'}
+            siteTitle={'Clientes Backup AV'}
             navRoutes={routes}
         >
             <div className={styles.container}>
