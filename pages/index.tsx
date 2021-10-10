@@ -17,14 +17,15 @@ interface Props {
         content: {
             description: string;
         };
-        featureImage: { name: string; url: string; width: number; height: number };
+        featuredImage: { name: string; url: string; width: number; height: number };
     };
     features: [{ title: string; featureList: string[]; url: string }];
-    clients: [{name: string; img: IImage}];
+    backupClients: {clients: [{name: string; img: IImage}]};
 }
 
-const Home: NextPage<Props> = ({ routes, backup, features, clients }) => {
-    const {meta, content, featureImage} = backup;
+const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
+    const {meta, content, featuredImage} = backup;
+    const { clients } = backupClients;
     const router = useRouter();
     return (
         <Layout
@@ -80,10 +81,10 @@ const Home: NextPage<Props> = ({ routes, backup, features, clients }) => {
             </div>
             <div className={styles['image-wrapper']}>
                 <Image
-                    src={`${staticDataUrl}/assets/img/${featureImage.url}`}
-                    alt={featureImage.name}
-                    width={featureImage.width}
-                    height={featureImage.height}
+                    src={`${staticDataUrl}/assets/img/${featuredImage.url}`}
+                    alt={featuredImage.name}
+                    width={featuredImage.width}
+                    height={featuredImage.height}
                     layout={'responsive'}
                 />
             </div>
@@ -105,7 +106,7 @@ export const getStaticProps: GetStaticProps = async () => {
             backup: { ...backup[0] },
             features,
             routes,
-            clients,
+            backupClients: { ...clients[0] },
         },
         revalidate: 1,
     };
