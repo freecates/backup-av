@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import api from '@libs/api.js';
-import styles from '@styles/Home.module.scss';
+import styles from '@styles/Page.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
 import { IRoute, IMeta, IImage } from '@interfaces/index';

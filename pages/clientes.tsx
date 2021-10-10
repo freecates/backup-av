@@ -1,6 +1,6 @@
 import Layout from '@components/layout';
 import api from '@libs/api.js';
-import styles from '@styles/Home.module.scss';
+import styles from '@styles/Page.module.scss';
 import ImageGrid from '@components/ImageGrid';
 import Button from '@components/button';
 import { IImage, IRoute } from '@interfaces/index';
