@@ -77,6 +77,7 @@ export const getStaticProps: GetStaticProps = async () => {
             contacta: { ...contacta[0] },
             routes,
         },
+        revalidate: 60
     };
 };
 
