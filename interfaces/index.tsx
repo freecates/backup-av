@@ -10,6 +10,24 @@ export interface IMeta {
     pageDescription: string;
 }
 
+export interface IContact extends IMeta {
+    name: string;
+    address: string;
+    phone: {
+        number: string;
+        href: string;
+    };
+    web: string;
+    email: {
+        address: string;
+        href: string
+    };
+    map: {
+        url: string;
+        title: string;
+    };
+}
+
 export interface IImage {
     url: string;
     width: number;

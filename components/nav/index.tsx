@@ -47,8 +47,15 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title }) => {
                         ))}
                     </ul>
                 </li>
-                <li className={styles['contact-wrapper']}>
-                    <Button name={'Contacta'} isAnchor isSmall url={'/contacta'} noShadow />
+                <li className={`${styles['contact-wrapper']}`}>
+                    <Button
+                        name={'Contacta'}
+                        isAnchor
+                        isActive={router.pathname === '/contacta'}
+                        isSmall
+                        url={'/contacta'}
+                        noShadow
+                    />
                 </li>
             </ul>
         </nav>

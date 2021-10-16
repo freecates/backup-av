@@ -29,6 +29,13 @@ const api = {
       return data;
     }
   },
+  contacta: {
+    async getData() {
+      const response = await fetch(`${staticDataUrl}/contacta.json`);
+      const data = await response.json();
+      return data;
+    }
+  },
 };
 
 

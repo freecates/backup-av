@@ -42,14 +42,18 @@
     }
 }
 
-.title a {
+.title a,
+.subtitle a {
     color: $main-red;
     text-decoration: none;
 }
 
 .title a:hover,
 .title a:focus,
-.title a:active {
+.title a:active,
+.subtitle a:hover,
+.subtitle a:focus,
+.subtitle a:active {
     text-decoration: underline;
 }
 

@@ -6,15 +6,16 @@ type ButtonProps = {
     type?: 'submit' | 'reset' | 'button' | undefined;
     url: string;
     isSmall?: boolean;
+    isActive?: boolean;
     noShadow?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({ name, isAnchor, type, url, isSmall, noShadow }) => (
+const Button: React.FC<ButtonProps> = ({ name, isAnchor, type, url, isSmall, isActive, noShadow }) => (
     <div className={styles.button}>
         {isAnchor ? (
             <a
                 href={url}
-                className={`${isSmall ? styles.small : ''} ${noShadow ? styles['no-shadow'] : ''}`}
+                className={`${isSmall ? styles.small : ''} ${isActive ? styles.active : ''} ${noShadow ? styles['no-shadow'] : ''}`}
             >
                 {name}
             </a>

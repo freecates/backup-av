@@ -33,5 +33,10 @@
         &.no-shadow {
             box-shadow: none;
         }
+
+        &.active {
+            background: darken($main-red, 10%);
+            cursor: default;
+        }
     }
 }
