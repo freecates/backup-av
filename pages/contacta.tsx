@@ -40,9 +40,9 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
                     <p className={styles.description}>
                         <strong>{name}</strong>
                         <br />
-                        {address}
+                        [{web}]
                         <br />
-                        {web}
+                        {address}
                     </p>
                     <h2 className={styles.subtitle}>
                                 <a
