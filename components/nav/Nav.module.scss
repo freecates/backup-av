@@ -61,7 +61,7 @@
                     &.active {
                         a {
                             color: $main-red;
-                            border-bottom: 0.25rem solid;
+                            border-top: 0.125rem solid;
                         }
                     }
 
@@ -76,7 +76,7 @@
 
                         &:hover {
                             color: $main-red;
-                            border-bottom: 0.25rem solid;
+                            border-top: 0.125rem solid;
                         }
                     }
                 }
