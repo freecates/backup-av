@@ -8,7 +8,7 @@ import Button from '@components/button';
 import { IRoute, IMeta, IImage } from '@interfaces/index';
 import ImageGrid from '@components/ImageGrid';
 
-const staticDataUrl = 'https://backup-av-data.vercel.app';
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
     routes: IRoute[];
@@ -56,7 +56,7 @@ const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
                                 </span>
                                 ?
                             </h2>
-                            <p>Líderes del sector confían en nuestros servicios</p>
+                            <p>Entidades y empresas líderes confían en nuestros servicios</p>
                             <div className={styles['grid']}>
                                 {features.map((f) => (
                                     <div
@@ -81,7 +81,7 @@ const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
             </div>
             <div className={styles['image-wrapper']}>
                 <Image
-                    src={`${staticDataUrl}/assets/img/${featuredImage.url}`}
+                    src={`${staticDataUrl}assets/img/${featuredImage.url}`}
                     alt={featuredImage.name}
                     width={featuredImage.width}
                     height={featuredImage.height}

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import styles from './ImageGrid.module.scss';
 import { IImage } from '@interfaces/index';
 
-const staticDataUrl = 'https://backup-av-data.vercel.app';
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 type ImageGridProps = {
     data: [

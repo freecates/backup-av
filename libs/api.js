@@ -1,4 +1,4 @@
-const staticDataUrl = process.env.STATIC_DATA_URL;
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 const api = {
   backup: {

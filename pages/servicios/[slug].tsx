@@ -5,7 +5,7 @@ import Button from '@components/button';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import Image from 'next/image';
 
-const staticDataUrl = 'https://backup-av-data.vercel.app';
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
     feature: {
@@ -39,7 +39,7 @@ const Servicio: NextPage<Props> = ({ feature }) => {
             </div>
             <div className={styles['image-wrapper']}>
                 <Image
-                    src={`${staticDataUrl}/assets/img/${featureImage.url}`}
+                    src={`${staticDataUrl}assets/img/${featureImage.url}`}
                     alt={featureImage.name}
                     width={featureImage.width}
                     height={featureImage.height}

@@ -5,7 +5,7 @@ import type { GetStaticProps, NextPage } from 'next';
 import { IRoute, IContact } from '@interfaces/index';
 import Image from 'next/image';
 
-const staticDataUrl = 'https://backup-av-data.vercel.app';
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
     routes: IRoute[];
@@ -59,7 +59,7 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
             </div>
             <div className={styles['image-wrapper']}>
                 <Image
-                    src={`${staticDataUrl}/assets/img/${url}`}
+                    src={`${staticDataUrl}assets/img/${url}`}
                     alt={imageName}
                     width={width}
                     height={height}
