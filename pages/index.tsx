@@ -20,12 +20,17 @@ interface Props {
         featuredImage: { name: string; url: string; width: number; height: number };
     };
     features: [{ title: string; featureList: string[]; url: string }];
-    backupClients: {clients: [{name: string; img: IImage}]};
+    clientData: [
+        {
+            acf: {
+                img: IImage;
+            };
+        },
+    ];
 }
 
-const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
-    const {meta, content, featuredImage} = backup;
-    const { clients } = backupClients;
+const Home: NextPage<Props> = ({ routes, backup, features, clientData }) => {
+    const { meta, content, featuredImage } = backup;
     const router = useRouter();
     return (
         <Layout
@@ -74,7 +79,7 @@ const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
                                     </div>
                                 ))}
                             </div>
-                            <ImageGrid data={clients} imageType={'gray'} />
+                            <ImageGrid data={clientData} imageType={'gray'} />
                         </div>
                     </div>
                 </main>
@@ -93,12 +98,11 @@ const Home: NextPage<Props> = ({ routes, backup, features, backupClients }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-
-    const [backup, features, routes, clients] = await Promise.all([
+    const [backup, features, routes, clientData] = await Promise.all([
         api.backup.getData(),
         api.features.getData(),
         api.routes.getData(),
-        api.clients.getData(),
+        api.clientData.getData(),
     ]);
 
     return {
@@ -106,7 +110,7 @@ export const getStaticProps: GetStaticProps = async () => {
             backup: { ...backup[0] },
             features,
             routes,
-            backupClients: { ...clients[0] },
+            clientData: clientData,
         },
         revalidate: 1,
     };
