@@ -9,9 +9,9 @@ const api = {
       return data;
     }
   },
-  features: {
+  feature: {
     async getData() {
-      const response = await fetch(`${staticDataUrl}/features.json`);
+      const response = await fetch(`${wpDataUrl}acf/v3/feature?per_page=100`);
       const data = await response.json();
       return data;
     }

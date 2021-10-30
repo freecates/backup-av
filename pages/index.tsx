@@ -6,6 +6,7 @@ import styles from '@styles/Page.module.scss';
 import Layout from '@components/layout';
 import Button from '@components/button';
 import { IRoute, IMeta, IImage } from '@interfaces/index';
+import { sorted } from '@utils/sorted';
 import ImageGrid from '@components/ImageGrid';
 
 const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
@@ -19,7 +20,9 @@ interface Props {
         };
         featuredImage: { name: string; url: string; width: number; height: number };
     };
-    features: [{ title: string; featureList: string[]; url: string }];
+    feature: [
+        { id: number; acf: { title: string; featured_list: [{ feature: string }]; url: string } },
+    ];
     clientData: [
         {
             id: number;
@@ -30,9 +33,10 @@ interface Props {
     ];
 }
 
-const Home: NextPage<Props> = ({ routes, backup, features, clientData }) => {
+const Home: NextPage<Props> = ({ routes, backup, feature, clientData }) => {
     const { meta, content, featuredImage } = backup;
     const router = useRouter();
+    const sortedFeature: typeof feature = sorted(feature, 'id');
     return (
         <Layout
             siteTitle={meta.pageTitle}
@@ -64,17 +68,17 @@ const Home: NextPage<Props> = ({ routes, backup, features, clientData }) => {
                             </h2>
                             <p>Entidades y empresas líderes confían en nuestros servicios</p>
                             <div className={styles['grid']}>
-                                {features.map((f) => (
+                                {sortedFeature.map((f) => (
                                     <div
-                                        title={`Ir a ${f.title}`}
-                                        key={f.title}
+                                        title={`Ir a ${f.acf.title}`}
+                                        key={f.acf.title}
                                         className={styles['card']}
-                                        onClick={() => router.push(`/servicios/${f.url}`)}
+                                        onClick={() => router.push(`/servicios/${f.acf.url}`)}
                                     >
-                                        <h3>{f.title}</h3>
+                                        <h3>{f.acf.title}</h3>
                                         <ul>
-                                            {f.featureList.map((l) => (
-                                                <li key={l}>{l}</li>
+                                            {f.acf.featured_list.map((l) => (
+                                                <li key={l.feature}>{l.feature}</li>
                                             ))}
                                         </ul>
                                     </div>
@@ -99,9 +103,9 @@ const Home: NextPage<Props> = ({ routes, backup, features, clientData }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const [backup, features, routes, clientData] = await Promise.all([
+    const [backup, feature, routes, clientData] = await Promise.all([
         api.backup.getData(),
-        api.features.getData(),
+        api.feature.getData(),
         api.routes.getData(),
         api.clientData.getData(),
     ]);
@@ -109,7 +113,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
         props: {
             backup: { ...backup[0] },
-            features,
+            feature,
             routes,
             clientData: clientData,
         },
