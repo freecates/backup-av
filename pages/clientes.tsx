@@ -10,16 +10,22 @@ import Image from 'next/image';
 const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
-    backupClients: {
-        clients: [{ name: string; img: IImage }];
+    backupClientsPage: {
         featuredImage: { name: string; url: string; width: number; height: number };
     };
     routes: IRoute[];
+    clientData: [
+        {
+            acf: {
+                img: IImage;
+            };
+        },
+    ];
 }
 
-const Clientes: NextPage<Props> = ({ backupClients, routes }) => {
-    const { clients, featuredImage } = backupClients;
-    
+const Clientes: NextPage<Props> = ({ backupClientsPage, routes, clientData }) => {
+    const { featuredImage } = backupClientsPage;
+
     return (
         <Layout
             pageTitle={'Clientes'}
@@ -35,7 +41,7 @@ const Clientes: NextPage<Props> = ({ backupClients, routes }) => {
                         <Button name={'Contacta'} isAnchor url={'/contacta'} />
                     </div>
                     <div className={'wrapper'}>
-                        <ImageGrid data={clients} imageType={'color'} />
+                        <ImageGrid data={clientData} imageType={'color'} />
                     </div>
                 </main>
             </div>
@@ -53,12 +59,17 @@ const Clientes: NextPage<Props> = ({ backupClients, routes }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const [clients, routes] = await Promise.all([api.clients.getData(), api.routes.getData()]);
+    const [clientsPage, routes, clientData] = await Promise.all([
+        api.clientsPage.getData(),
+        api.routes.getData(),
+        api.clientData.getData(),
+    ]);
 
     return {
         props: {
-            backupClients: { ...clients[0] },
+            backupClientsPage: { ...clientsPage[0] },
             routes,
+            clientData: clientData,
         },
         revalidate: 1,
     };
