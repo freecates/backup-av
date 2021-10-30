@@ -5,20 +5,21 @@ import Button from '@components/button';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import Image from 'next/image';
 
-const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
-
 interface Props {
     feature: {
-        title: string;
-        featureList: string[];
-        claim: string;
-        url: string;
-        featureImage: { name: string; url: string; width: number; height: number };
+        id: number;
+        acf: {
+            title: string;
+            featured_list: [{ feature: string }];
+            claim: string;
+            url: string;
+            featured_image: { alt: string; url: string; width: number; height: number };
+        };
     };
 }
 
 const Servicio: NextPage<Props> = ({ feature }) => {
-    const { title, featureList, claim, featureImage } = feature;
+    const { title, featured_list: featureList, claim, featured_image: featureImage } = feature.acf;
     return (
         <Layout pageTitle={title} pageDescription={title} siteTitle={title} navRoutes={[]}>
             <div className={styles.container}>
@@ -27,8 +28,8 @@ const Servicio: NextPage<Props> = ({ feature }) => {
                     <p className={styles.description}>{claim}</p>
                     <ul>
                         {featureList.map((l) => (
-                            <li className={styles.decription} key={l}>
-                                {l}
+                            <li className={styles.decription} key={l.feature}>
+                                {l.feature}
                             </li>
                         ))}
                     </ul>
@@ -39,8 +40,8 @@ const Servicio: NextPage<Props> = ({ feature }) => {
             </div>
             <div className={styles['image-wrapper']}>
                 <Image
-                    src={`${staticDataUrl}assets/img/${featureImage.url}`}
-                    alt={featureImage.name}
+                    src={`${featureImage.url}`}
+                    alt={featureImage.alt}
                     width={featureImage.width}
                     height={featureImage.height}
                     layout={'responsive'}
@@ -51,22 +52,20 @@ const Servicio: NextPage<Props> = ({ feature }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const [features] = await Promise.all([api.features.getData()]);
-    const paths = features.map((f: { url: any }) => `/servicios/${f.url}`);
+    const [feature] = await Promise.all([api.feature.getData()]);
+    const paths = feature.map((f: { acf: any }) => `/servicios/${f.acf.url}`);
 
     return { paths, fallback: false };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const [features] = await Promise.all([api.features.getData()]);
+    const [feature] = await Promise.all([api.feature.getData()]);
 
-    const feature = features.filter(
-        (f: { url: string | string[] | undefined }) => f.url === params!.slug,
-    );
+    const singleFeature = feature.filter((f: { acf: any }) => f.acf.url === params!.slug);
 
     return {
         props: {
-            feature: { ...feature[0] },
+            feature: { ...singleFeature[0] },
         },
         revalidate: 1,
     };
