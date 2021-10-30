@@ -22,6 +22,7 @@ interface Props {
     features: [{ title: string; featureList: string[]; url: string }];
     clientData: [
         {
+            id: number;
             acf: {
                 img: IImage;
             };

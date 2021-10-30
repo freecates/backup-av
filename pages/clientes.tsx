@@ -16,6 +16,7 @@ interface Props {
     routes: IRoute[];
     clientData: [
         {
+            id: number;
             acf: {
                 img: IImage;
             };

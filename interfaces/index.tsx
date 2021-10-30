@@ -32,5 +32,6 @@ export interface IImage {
     url: string;
     width: number;
     height: number;
+    alt: string;
     [key: string] : any;
 }
