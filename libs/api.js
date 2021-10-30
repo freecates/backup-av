@@ -9,6 +9,13 @@ const api = {
       return data;
     }
   },
+  features: {
+    async getData() {
+      const response = await fetch(`${staticDataUrl}/features.json`);
+      const data = await response.json();
+      return data;
+    }
+  },
   feature: {
     async getData() {
       const response = await fetch(`${wpDataUrl}acf/v3/feature?per_page=100`);
