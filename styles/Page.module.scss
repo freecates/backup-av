@@ -29,6 +29,20 @@
         }
     }
 }
+.with-portfolio {
+    padding: 0;
+    text-align: center;
+    padding-bottom: 12rem;
+    margin-bottom: -12rem;
+    position: relative;
+    background: $white;
+
+    @media (min-width: 768px) {
+        padding: 3rem 0;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
 
 .main {
     padding: 2rem 0;
@@ -160,5 +174,64 @@
 .image-wrapper {
     img {
         background: lighten($main-red, 45%);
+    }
+}
+
+.bg-projects {
+    background: darken($main-red, 10%);
+}
+
+.portfolio-container {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    position: relative;
+
+    @media (min-width: 768px) {
+        padding-bottom: 8rem;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+        margin-top: 5rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4rem;
+    }
+
+    .featured-project {
+        padding-bottom: 1.5rem;
+        padding-top: 1.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        justify-content: center;
+        border-radius: 0.375rem;
+
+        @media (min-width: 768px) {
+            padding-left: 4rem;
+            padding-right: 4rem;
+            flex-direction: column;
+            display: flex;
+            margin-bottom: 6rem;
+            grid-column: span 2 / span 2;
+        }
+        @media (min-width: 640px) {
+            background-position: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .logo-project {
+            @media (min-width: 768px) {
+                padding-bottom: 10rem;
+                padding-top: 10rem;
+            }
+            padding-bottom: 2rem;
+            padding-top: 2rem;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            padding-bottom: 2rem;
+            padding-top: 2rem;
+        }
     }
 }
