@@ -5,6 +5,8 @@ import Button from '@components/button';
 import { GetStaticProps, NextPage } from 'next';
 import { IRoute } from '@interfaces/index';
 
+const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
+
 interface Props {
     routes: IRoute[];
 }
@@ -36,8 +38,8 @@ const Clientes: NextPage<Props> = ({ routes }) => {
                         className={styles['featured-project']}
                         style={{
                             backgroundImage:
-                                'url(https://images.prismic.io/monogram/9398188e-b087-4d64-807f-d5b23fd415d3_m-bg.jpg?auto=compress,format)',
-                            backgroundColor: '#764d9b',
+                                `url(${staticDataUrl}assets/img/backup-av-carillo-del-palau.webp)`,
+                            backgroundColor: '#5884b7',
                         }}
                     >
                         <div className={styles['logo-project']}>
