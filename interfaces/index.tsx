@@ -20,7 +20,7 @@ export interface IContact extends IMeta {
     web: string;
     email: {
         address: string;
-        href: string
+        href: string;
     };
     map: {
         url: string;
@@ -33,5 +33,16 @@ export interface IImage {
     width: number;
     height: number;
     alt: string;
-    [key: string] : any;
+    [key: string]: any;
+}
+
+export interface IProject {
+    id: number;
+    acf: {
+        img: IImage;
+        name: string;
+        description: string;
+        color: string;
+        logo: IImage;
+    };
 }

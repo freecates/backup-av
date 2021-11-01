@@ -37,6 +37,13 @@ const api = {
       return data;
     }
   },
+  projectData: {
+    async getData() {
+      const response = await fetch(`${wpDataUrl}acf/v3/projects?per_page=100`);
+      const data = await response.json();
+      return data;
+    }
+  },
   contacta: {
     async getData() {
       const response = await fetch(`${staticDataUrl}/contacta.json`);
