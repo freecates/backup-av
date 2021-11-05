@@ -97,15 +97,6 @@ body {
     font-weight: normal;
 }
 
-body {
-    background: url('/mosaic-backup-av.webp') no-repeat right bottom;
-
-    @media (min-width: 768px) {
-        background: url('/mosaic-backup-av.webp') no-repeat right bottom;
-        overflow-x: hidden;
-    }
-}
-
 h1,
 h2,
 h3,

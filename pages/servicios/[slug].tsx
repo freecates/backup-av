@@ -1,7 +1,7 @@
-import Layout from '@components/layout';
+import Layout from '@components/Layout';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
-import Button from '@components/button';
+import Button from '@components/Button';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import Image from 'next/image';
 
