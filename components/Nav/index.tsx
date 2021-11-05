@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import styles from './Nav.module.scss';
 import { IRoute } from '@interfaces/index';
-import Button from '@components/button';
+import Button from '@components/Button';
 
 type NavProps = {
     navRoutes: IRoute[];

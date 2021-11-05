@@ -1,4 +1,4 @@
-import Layout from '@components/layout';
+import Layout from '@components/Layout';
 import styles from '@styles/Page.module.scss';
 import api from '@libs/api.js';
 import type { GetStaticProps, NextPage } from 'next';
