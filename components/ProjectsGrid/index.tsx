@@ -1,5 +1,6 @@
 import { IProject } from '@interfaces/index';
 import Image from 'next/image';
+import Share from '@components/share';
 
 import styles from './ProjectsGrid.module.scss';
 
@@ -39,6 +40,16 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               <h2>{p.acf.name}</h2>
                               <hr style={{ borderColor: p.acf.color }} />
                               <p>{p.acf.description}</p>
+                              <hr style={{ borderColor: p.acf.color }} />
+                              <div className={styles['share-wrapper']}>
+                                  <Share
+                                      buttonColor={p.acf.color}
+                                      label={'Comparte'}
+                                      title={p.acf.name}
+                                      text={p.acf.description}
+                                      url={`/proyectos/${p.id}/${p.slug}`}
+                                  />
+                              </div>
                           </div>
                       </div>
                   ))
@@ -66,6 +77,14 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                           <div className={styles['project-description']}>
                               <h2 style={{ maxWidth: '260px' }}>{p.acf.name}</h2>
                               <p style={{ maxWidth: '290px' }}>{p.acf.description}</p>
+
+                              <Share
+                                  buttonColor={'rgb(241, 9, 9)'}
+                                  label={'Comparte'}
+                                  title={p.acf.name}
+                                  text={p.acf.description}
+                                  url={`/proyectos/${p.id}/${p.slug}`}
+                              />
                           </div>
                       </div>
                   ))
