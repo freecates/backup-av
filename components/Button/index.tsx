@@ -8,14 +8,28 @@ type ButtonProps = {
     isSmall?: boolean;
     isActive?: boolean;
     noShadow?: boolean;
+    background?: string;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ name, isAnchor, type, url, isSmall, isActive, noShadow }) => (
+const Button: React.FC<ButtonProps> = ({
+    name,
+    isAnchor,
+    type,
+    url,
+    isSmall,
+    isActive,
+    noShadow,
+    background,
+    onClick
+}) => (
     <div className={styles.button}>
         {isAnchor ? (
             <a
                 href={url}
-                className={`${isSmall ? styles.small : ''} ${isActive ? styles.active : ''} ${noShadow ? styles['no-shadow'] : ''}`}
+                className={`${isSmall ? styles.small : ''} ${isActive ? styles.active : ''} ${
+                    noShadow ? styles['no-shadow'] : ''
+                }`}
             >
                 {name}
             </a>
@@ -24,6 +38,10 @@ const Button: React.FC<ButtonProps> = ({ name, isAnchor, type, url, isSmall, isA
                 name={name}
                 type={type}
                 className={`${isSmall ? styles.small : ''} ${noShadow ? styles['no-shadow'] : ''}`}
+                style={{
+                    backgroundColor: background ? background : 'inherit',
+                }}
+                onClick={onClick}
             >
                 {name}
             </button>

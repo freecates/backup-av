@@ -12,6 +12,7 @@ type Props = {
     pageDescription: string;
     children: any;
     navRoutes: IRoute[];
+    cardImg?: string;
 };
 
 const Layout: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const Layout: React.FC<Props> = ({
     pageDescription,
     children,
     navRoutes,
+    cardImg,
 }) => (
     <>
         <Head>
@@ -41,7 +43,7 @@ const Layout: React.FC<Props> = ({
             <link rel='icon' href='/favicon.ico' />
 
             <meta name='twitter:card' content='summary_large_image' />
-            <meta name='twitter:site' content='regadorafest' />
+            <meta name='twitter:site' content='backupav' />
             <meta
                 name='twitter:creator'
                 content='Backup Audiovisuals - Integración de sistemas audiovisuales'
@@ -56,7 +58,7 @@ const Layout: React.FC<Props> = ({
             />
             <meta
                 name='twitter:image:src'
-                content={'https://regadora.cat/backup-av-site-image.jpg'}
+                content={cardImg ? `${cardImg}` : '/backup-av-site-image.jpg'}
             />
             <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='true' />
         </Head>

@@ -38,6 +38,7 @@ export interface IImage {
 
 export interface IProject {
     id: number;
+    slug: string;
     acf: {
         img: IImage;
         name: string;

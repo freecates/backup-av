@@ -39,7 +39,7 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title }) => {
                             <li
                                 key={index}
                                 className={`${
-                                    router.pathname === route.route ? styles.active : ''
+                                    router.pathname.includes(route.route)  ? styles.active : ''
                                 }`}
                             >
                                 <Link href={route.route}>{route.name}</Link>
