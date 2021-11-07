@@ -35,7 +35,9 @@ const Layout: React.FC<Props> = ({
     slug,
     author,
     date,
-}) => (
+}) => {
+    const proyectos = type === 'projects' && 'proyectos';
+    return (
     <>
         <Head>
             <meta charSet='utf-8' />
@@ -87,7 +89,7 @@ const Layout: React.FC<Props> = ({
                         "@type": "NewsArticle",
                         "mainEntityOfPage": {
                         "@type": "WebPage",
-                        "@id": "${`https://backup-av.vercel.app/` + type + '/' + id + '/' + slug}"
+                        "@id": "${`https://backup-av.vercel.app/` + proyectos + '/' + id + '/' + slug}"
                         },
                         "author": {
                         "@type": "Person",
@@ -111,7 +113,7 @@ const Layout: React.FC<Props> = ({
                     <meta property='fb:app_id' content='1064356173625695' />
                     <meta
                         property='og:url'
-                        content={`"https://backup-av.vercel.app/${type}/${id}/${slug}`}
+                        content={`"https://backup-av.vercel.app/${proyectos}/${id}/${slug}`}
                     />
                     <meta property='og:type' content='article' />
                     <meta property='og:title' content={pageTitle} />
@@ -133,6 +135,6 @@ const Layout: React.FC<Props> = ({
         <div>{children}</div>
         <Footer />
     </>
-);
+)};
 
 export default Layout;
