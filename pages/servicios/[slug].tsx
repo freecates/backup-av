@@ -4,8 +4,10 @@ import styles from '@styles/Page.module.scss';
 import Button from '@components/Button';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import Image from 'next/image';
+import { IRoute } from '@interfaces/index';
 
 interface Props {
+    routes: IRoute[];
     feature: {
         id: number;
         acf: {
@@ -18,10 +20,11 @@ interface Props {
     };
 }
 
-const Servicio: NextPage<Props> = ({ feature }) => {
+const Servicio: NextPage<Props> = ({ feature, routes }) => {
     const { title, featured_list: featureList, claim, featured_image: featureImage } = feature.acf;
     return (
-        <Layout pageTitle={title} pageDescription={title} siteTitle={title} navRoutes={[]}>
+        <Layout pageTitle={title} pageDescription={title} siteTitle={title} 
+        navRoutes={routes}>
             <div className={styles.container}>
                 <main className={styles.main}>
                     <h1 className={styles.title}>{title}</h1>
@@ -59,13 +62,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const [feature] = await Promise.all([api.feature.getData()]);
+    const [feature, routes] = await Promise.all([api.feature.getData(), api.routes.getData()]);
 
     const singleFeature = feature.filter((f: { acf: any }) => f.acf.url === params!.slug);
 
     return {
         props: {
             feature: { ...singleFeature[0] },
+            routes,
         },
         revalidate: 1,
     };

@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { IProject } from '@interfaces/index';
 import Image from 'next/image';
-import Share from '@components/share';
+import Share from '@components/Share';
 
 import styles from './ProjectsGrid.module.scss';
 
@@ -37,7 +38,9 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               className={styles['featured-project-card']}
                               style={{ color: p.acf.color }}
                           >
-                              <h2>{p.acf.name}</h2>
+                              <h2>
+                                  <Link href={`/proyectos/${p.id}/${p.slug}`}>{p.acf.name}</Link>
+                              </h2>
                               <hr style={{ borderColor: p.acf.color }} />
                               <p>{p.acf.description}</p>
                               <hr style={{ borderColor: p.acf.color }} />
@@ -75,7 +78,9 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               </div>
                           </div>
                           <div className={styles['project-description']}>
-                              <h2 style={{ maxWidth: '260px' }}>{p.acf.name}</h2>
+                              <h2>
+                                  <Link href={`/proyectos/${p.id}/${p.slug}`}>{p.acf.name}</Link>
+                              </h2>
                               <p style={{ maxWidth: '290px' }}>{p.acf.description}</p>
 
                               <Share

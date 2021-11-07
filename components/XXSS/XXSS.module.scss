@@ -1,0 +1,11 @@
+@import 'styles/colors';
+
+.xxss {
+    text-align: center;
+    
+    span {
+        color: $main-red;
+        font-size: 1rem;
+        padding: .5rem;
+    }
+}

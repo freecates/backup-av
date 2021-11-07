@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     isActive,
     noShadow,
     background,
-    onClick
+    onClick,
 }) => (
     <div className={styles.button}>
         {isAnchor ? (
@@ -34,17 +34,26 @@ const Button: React.FC<ButtonProps> = ({
                 {name}
             </a>
         ) : (
-            <button
-                name={name}
-                type={type}
-                className={`${isSmall ? styles.small : ''} ${noShadow ? styles['no-shadow'] : ''}`}
-                style={{
-                    backgroundColor: background ? background : 'inherit',
-                }}
-                onClick={onClick}
-            >
-                {name}
-            </button>
+            <>
+                <button
+                    name={name}
+                    type={type}
+                    className={`${isSmall ? styles.small : ''} ${
+                        noShadow ? styles['no-shadow'] : ''
+                    }`}
+                    onClick={onClick}
+                >
+                    {name}
+                </button>
+                <style jsx>{`
+                    button {
+                        background: ${background && background}!important;
+                    }
+                    button:hover {
+                        filter: brightness(90%) !important;
+                    }
+                `}</style>
+            </>
         )}
     </div>
 );
