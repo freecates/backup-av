@@ -37,8 +37,10 @@ export interface IImage {
 }
 
 export interface IProject {
-    id: number;
+    id: string;
     slug: string;
+    date: Date;
+    type: string;
     acf: {
         img: IImage;
         name: string;
@@ -46,4 +48,5 @@ export interface IProject {
         color: string;
         logo: IImage;
     };
+    _embedded: { author: [{ name: string }] };
 }

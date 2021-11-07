@@ -13,6 +13,12 @@ type Props = {
     children: any;
     navRoutes: IRoute[];
     cardImg?: string;
+    withSchema?: boolean;
+    type?: string;
+    id?: string;
+    slug?: string;
+    author?: string;
+    date?: Date;
 };
 
 const Layout: React.FC<Props> = ({
@@ -23,6 +29,12 @@ const Layout: React.FC<Props> = ({
     children,
     navRoutes,
     cardImg,
+    withSchema,
+    type,
+    id,
+    slug,
+    author,
+    date,
 }) => (
     <>
         <Head>
@@ -58,9 +70,60 @@ const Layout: React.FC<Props> = ({
             />
             <meta
                 name='twitter:image:src'
-                content={cardImg ? `${cardImg}` : '/backup-av-site-image.jpg'}
+                content={
+                    cardImg ? `${cardImg}` : 'https://backup-av.vercel.app/backup-av-site-image.jpg'
+                }
             />
             <link rel='preconnect' href='https://fonts.gstatic.com/' crossOrigin='true' />
+
+            {withSchema ? (
+                <>
+                    <script
+                        type='application/ld+json'
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                        {
+                        "@context": "http://schema.org",
+                        "@type": "NewsArticle",
+                        "mainEntityOfPage": {
+                        "@type": "WebPage",
+                        "@id": "${`https://backup-av.vercel.app/` + type + '/' + id + '/' + slug}"
+                        },
+                        "author": {
+                        "@type": "Person",
+                        "name": "${author}"
+                        },
+                        "publisher": {
+                        "@type": "Organization",
+                        "name": "Backup Audiovisuals",
+                        "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://backup-av.vercel.app/backup-av-site-image.jpg"
+                        }
+                        }, 
+                        "description": "${pageDescription}",
+                        "image": "${cardImg}",
+                        "datePublished": "${date}",
+                        "headline": "${pageTitle}"
+                        }`,
+                        }}
+                    />
+                    <meta property='fb:app_id' content='1064356173625695' />
+                    <meta
+                        property='og:url'
+                        content={`"https://backup-av.vercel.app/${type}/${id}/${slug}`}
+                    />
+                    <meta property='og:type' content='article' />
+                    <meta property='og:title' content={pageTitle} />
+                    <meta
+                        property='og:description'
+                        content={`${pageDescription}`}
+                    />
+                    <meta property='og:image' content={cardImg} />
+                    <meta property='og:image:width' content={'1024'} />
+                    <meta property='og:image:height' content={'1024'} />
+                </>
+            ) : null}
         </Head>
         {navRoutes && navRoutes.length ? (
             <div className={styles['nav-wrapper']}>

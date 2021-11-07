@@ -14,6 +14,7 @@ interface Props {
 
 const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
     const metaData = singleProjectData[0];
+    const author = metaData._embedded.author[0].name;
     const data = { featured: singleProjectData, notFeatured: [] };
     return (
         <Layout
@@ -22,6 +23,12 @@ const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
             siteTitle={'Proyectos Backup AV'}
             navRoutes={routes}
             cardImg={metaData.acf.img.url}
+            withSchema
+            id={metaData.id}
+            slug={metaData.slug}
+            author={author}
+            date={metaData.date}
+            type={metaData.type}
         >
             <div className={styles['with-portfolio']}>
                 <div className={`${styles.container}`}>
