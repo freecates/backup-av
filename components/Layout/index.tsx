@@ -133,7 +133,7 @@ const Layout: React.FC<Props> = ({
             </div>
         ) : null}
         <div>{children}</div>
-        <Footer />
+            <Footer />
     </>
 )};
 
