@@ -1,5 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
@@ -96,10 +97,12 @@ const Home: NextPage<Props> = ({ routes, backup, feature, clientData, featuredPr
             </div>
             <div className={styles['bg-projects']}>
                 <ProjectsGrid data={data} />
+                <p className={styles.more}>
+                    <Link href={'/proyectos'}>[+]</Link>
+                </p>
             </div>
             <div className={styles['container']}>
-
-                                <ImageGrid data={clientData} imageType={'gray'} />
+                <ImageGrid data={clientData} imageType={'gray'} />
             </div>
             <div className={styles['image-wrapper']}>
                 <Image

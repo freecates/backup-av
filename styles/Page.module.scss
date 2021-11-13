@@ -82,7 +82,8 @@
 }
 
 .title,
-.description {
+.description, 
+.more {
     text-align: center;
 }
 
@@ -179,6 +180,15 @@
 
 .bg-projects {
     background: darken($main-red, 10%);
+    
+    .more {
+        color: $white;
+        position: relative;
+        top: -1rem;
+        @media (min-width: 768px) {
+            top: -7rem;
+        }
+    }
 }
 
 .sr-only {
