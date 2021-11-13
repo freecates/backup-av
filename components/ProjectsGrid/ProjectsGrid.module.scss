@@ -69,11 +69,8 @@
             margin-right: auto;
 
             @media (min-width: 768px) {
-                box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-                    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-            }
-            @media (min-width: 768px) {
-                --tw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                box-shadow: 0 0 #0000, 0 0 #0000,
+                    0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             }
             @media (min-width: 768px) {
                 margin-bottom: -4rem;
@@ -99,8 +96,7 @@
 
     .project {
         padding-bottom: 1.5rem;
-        --tw-border-opacity: 1;
-        border-color: rgba(31, 48, 67, var(--tw-border-opacity));
+        border-color: rgba(31, 48, 67, 1);
         border-bottom-width: 1px;
         justify-content: center;
         align-items: center;
