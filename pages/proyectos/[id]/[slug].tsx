@@ -37,9 +37,11 @@ const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
                     </main>
                 </div>
             </div>
-            <div className={styles['bg-projects']}>
-                <ProjectsGrid data={data} />
-            </div>
+            {singleProjectData ? (
+                <div className={styles['bg-projects']}>
+                    <ProjectsGrid data={data} />
+                </div>
+            ) : null}
         </Layout>
     );
 };

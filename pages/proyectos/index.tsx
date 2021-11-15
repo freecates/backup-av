@@ -34,9 +34,11 @@ const Projects: NextPage<Props> = ({ routes, featuredProjectData, notFeaturedPro
                     </main>
                 </div>
             </div>
-            <div className={styles['bg-projects']}>
-                <ProjectsGrid data={data} />
-            </div>
+            {featuredProjectData ? (
+                <div className={styles['bg-projects']}>
+                    <ProjectsGrid data={data} />
+                </div>
+            ) : null}
         </Layout>
     );
 };

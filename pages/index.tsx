@@ -95,12 +95,14 @@ const Home: NextPage<Props> = ({ routes, backup, feature, clientData, featuredPr
                     </main>
                 </div>
             </div>
-            <div className={styles['bg-projects']}>
-                <ProjectsGrid data={data} />
+            {featuredProjectData ? (
+                <div className={styles['bg-projects']}>
+                    <ProjectsGrid data={data} />
                 <p className={styles.more}>
                     <Link href={'/proyectos'}>[+]</Link>
                 </p>
-            </div>
+                </div>
+            ) : null}
             <div className={styles['container']}>
                 <ImageGrid data={clientData} imageType={'gray'} />
             </div>
