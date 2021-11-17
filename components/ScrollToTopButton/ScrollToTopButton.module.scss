@@ -1,0 +1,42 @@
+@import 'styles/colors';
+
+.scroll-to-top-button-component {
+    width: 100%;
+    display: block;
+
+    .scroll-to-top-button {
+        display: block;
+        text-align: center;
+        width: 100%;
+        background: lighten($main-red, 15%);
+        color: $white;
+        padding: 0 .5rem;
+        border-radius: 50%;
+        transition: background ease 0.25s;
+        border: none;
+        font: inherit;
+        font-weight: normal;
+        height: 2.81rem;
+        line-height: 1.8rem;
+        opacity: .9;
+
+        &:hover {
+            background: $main-red;
+            cursor: pointer;
+        }
+
+        &.active {
+            background: $main-red;
+            cursor: default;
+        }
+
+        .scroll-to-top-button-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0 .5rem 0;
+            font-size: 3rem;
+            color: $white;
+        }
+    }
+}

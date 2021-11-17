@@ -25,3 +25,10 @@
         z-index: 3000;
     }
 }
+
+.scroll-to-top-wrapper {
+    position: fixed;
+    bottom: .75rem;
+    right: .75rem;
+    z-index: 1035;
+  }
