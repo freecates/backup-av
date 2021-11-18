@@ -7,19 +7,21 @@ import Button from '@components/Button';
 
 type NavProps = {
     navRoutes: IRoute[];
-    title: string;
+    title?: string;
+    small?: boolean;
+    noButton?: boolean;
 };
 
-const Nav: React.FC<NavProps> = ({ navRoutes, title }) => {
+const Nav: React.FC<NavProps> = ({ navRoutes, title, small, noButton }) => {
     const home = navRoutes.filter((x) => x.route === '/');
     const routes = navRoutes.filter((x) => x.route !== '/');
     const router = useRouter();
 
     return (
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${small ? styles.small : ''}`}>
             <ul className={styles.main}>
                 {home.map((h, index) => (
-                    <li key={index} className={router.pathname === h.route ? 'active' : ''}>
+                    <li key={index} className={router.pathname === h.route ? styles.active : ''}>
                         <Link href={h.route}>
                             <a>
                                 <Image
@@ -39,7 +41,7 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title }) => {
                             <li
                                 key={index}
                                 className={`${
-                                    router.pathname.includes(route.route)  ? styles.active : ''
+                                    router.pathname.includes(route.route) ? styles.active : ''
                                 }`}
                             >
                                 <Link href={route.route}>{route.name}</Link>
@@ -47,16 +49,18 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title }) => {
                         ))}
                     </ul>
                 </li>
-                <li className={`${styles['contact-wrapper']}`}>
-                    <Button
-                        name={'Contacta'}
-                        isAnchor
-                        isActive={router.pathname === '/contacta'}
-                        isSmall
-                        url={'/contacta'}
-                        noShadow
-                    />
-                </li>
+                {noButton ? null : (
+                    <li className={`${styles['contact-wrapper']}`}>
+                        <Button
+                            name={'Contacta'}
+                            isAnchor
+                            isActive={router.pathname === '/contacta'}
+                            isSmall
+                            url={'/contacta'}
+                            noShadow
+                        />
+                    </li>
+                )}
             </ul>
         </nav>
     );

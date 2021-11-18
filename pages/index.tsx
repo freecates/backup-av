@@ -15,6 +15,7 @@ const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
     routes: IRoute[];
+    otherRoutes: IRoute[];
     backup: {
         meta: IMeta;
         content: {
@@ -36,7 +37,7 @@ interface Props {
     featuredProjectData: IProject[];
 }
 
-const Home: NextPage<Props> = ({ routes, backup, feature, clientData, featuredProjectData }) => {
+const Home: NextPage<Props> = ({ routes, otherRoutes, backup, feature, clientData, featuredProjectData }) => {
     const { meta, content, featuredImage } = backup;
     const router = useRouter();
     const sortedFeature: typeof feature = sorted(feature, 'id');
@@ -46,6 +47,7 @@ const Home: NextPage<Props> = ({ routes, backup, feature, clientData, featuredPr
         <Layout
             siteTitle={meta.pageTitle}
             navRoutes={routes}
+            otherRoutes={otherRoutes}
             pageTitle={''}
             pageDescription={meta.pageDescription}
             home
@@ -120,10 +122,11 @@ const Home: NextPage<Props> = ({ routes, backup, feature, clientData, featuredPr
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const [backup, feature, routes, clientData, projectData] = await Promise.all([
+    const [backup, feature, routes, otherRoutes, clientData, projectData] = await Promise.all([
         api.backup.getData(),
         api.feature.getData(),
         api.routes.getData(),
+        api.otherRoutes.getData(),
         api.clientData.getData(),
         api.projectData.getData(),
     ]);
@@ -137,6 +140,7 @@ export const getStaticProps: GetStaticProps = async () => {
             backup: { ...backup[0] },
             feature,
             routes,
+            otherRoutes,
             clientData: clientData,
             featuredProjectData: featuredProjectData,
         },

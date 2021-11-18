@@ -25,6 +25,13 @@ const api = {
             return data;
         },
     },
+    otherRoutes: {
+        async getData() {
+            const response = await fetch(`${staticDataUrl}/otherRoutes.json`);
+            const data = await response.json();
+            return data;
+        },
+    },
     clientsPage: {
         async getData() {
             const response = await fetch(`${staticDataUrl}clients.json`);
@@ -53,6 +60,15 @@ const api = {
     singleProjectData: {
         async getData(id) {
             const response = await fetch(`${wpDataUrl}wp/v2/projects/${id}?_embed`, {
+                headers: { 'Cache-Control': 'no-store, max-age=0' },
+            });
+            const data = await response.json();
+            return data;
+        },
+    },
+    staticPages: {
+        async getData(id) {
+            const response = await fetch(`${wpDataUrl}wp/v2/pages?per_page=100`, {
                 headers: { 'Cache-Control': 'no-store, max-age=0' },
             });
             const data = await response.json();

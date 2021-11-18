@@ -14,6 +14,7 @@ type Props = {
     pageDescription: string;
     children: any;
     navRoutes: IRoute[];
+    otherRoutes?: IRoute[];
     cardImg?: string;
     withSchema?: boolean;
     type?: string;
@@ -30,6 +31,7 @@ const Layout: React.FC<Props> = ({
     pageDescription,
     children,
     navRoutes,
+    otherRoutes,
     cardImg,
     withSchema,
     type,
@@ -139,7 +141,7 @@ const Layout: React.FC<Props> = ({
             <div className={styles['scroll-to-top-wrapper']}>
                 <ScrollToTopButton visibilityPoint={1000} />
             </div>
-            <Footer />
+            <Footer otherRoutes={otherRoutes} />
         </>
     );
 };
