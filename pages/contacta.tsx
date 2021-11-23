@@ -29,11 +29,11 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
             <div className={styles.container}>
                 <main className={styles.main}>
                     <h1 className={`${ styles.subtitle} ${ styles['no-color'] }`}>
-                        <a href={phone.href} title={`¿Qué necesitas? Llamanos a ${name}`}>
+                        <a href={phone.href} title={`¿Qué necesitas? ¡Llámanos!`}>
                             {phone.number}
                         </a>
                         <br />
-                        <a href={email.href} title={`¿Qué necesitas? Escríbenos a ${name}`}>
+                        <a href={email.href} title={`¿Qué necesitas? ¡Escríbenos!`}>
                             {email.address}
                         </a>
                     </h1>
