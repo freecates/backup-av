@@ -28,7 +28,7 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>
+                    <h1 className={`${ styles.subtitle} ${ styles['no-color'] }`}>
                         <a href={phone.href} title={`¿Qué necesitas? Llamanos a ${name}`}>
                             {phone.number}
                         </a>
@@ -38,7 +38,9 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
                         </a>
                     </h1>
                     <p className={styles.description}>
-                        <strong>{name}</strong>
+                        <strong className={'backup'} dangerouslySetInnerHTML={{
+                            __html: name,
+                        }} />
                         <br />
                         [{web}]
                         <br />
@@ -51,7 +53,7 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
                                     target={'_blank'}
                                     rel={'noopener noreferrer'}
                                 >
-                                    ¿Vienes?
+                                    Ubicación
                                 </a>
                             </h2>
                     
