@@ -13,7 +13,7 @@ type Props = {
     siteTitle: string;
     pageDescription: string;
     children: any;
-    navRoutes: IRoute[];
+    navRoutes: IRoute[] | null;
     otherRoutes?: IRoute[];
     cardImg?: string;
     withSchema?: boolean;

@@ -1,6 +1,9 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import { useRouter } from 'next/router';
 import { IRoute, IProject } from '@interfaces/index';
+import Custom404 from '@pages/404';
 import Layout from '@components/Layout';
+import Fallback from '@components/FallBack';
 import ProjectsGrid from '@components/ProjectsGrid';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
@@ -13,6 +16,16 @@ interface Props {
 }
 
 const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
+    const { isFallback } = useRouter();
+    if (!isFallback && !singleProjectData) {
+        return <Custom404 />;
+    }
+    if (isFallback) {
+        return <Fallback />;
+    }
+    if (singleProjectData === null) {
+        return <Fallback notFound />;
+    }
     const metaData = singleProjectData[0];
     const author = metaData._embedded.author[0].name;
     const data = { featured: singleProjectData, notFeatured: [] };
@@ -50,7 +63,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const [projectData] = await Promise.all([api.projectData.getData()]);
     const paths = projectData.map((f: { id: any; slug: any }) => `/proyectos/${f.id}/${f.slug}`);
 
-    return { paths, fallback: false };
+    return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
