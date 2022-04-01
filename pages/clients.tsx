@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
 import Layout from '@components/Layout';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
 import ImageGrid from '@components/ImageGrid';
 import Button from '@components/Button';
-import { IImage, IRoute } from '@interfaces/index';
+import { IImage, IRoute, IMeta } from '@interfaces/index';
 import { GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 
@@ -11,9 +12,16 @@ const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
     backupClientsPage: {
-        featuredImage: { name: string; url: string; width: number; height: number };
+        [key: string]: {
+            meta: IMeta;
+            content: {
+                title: string;
+                description: string;
+            };
+            featuredImage: { name: string; url: string; width: number; height: number };
+        };
     };
-    routes: IRoute[];
+    routes: { [key: string]: IRoute[] };
     clientData: [
         {
             id: number;
@@ -25,21 +33,24 @@ interface Props {
 }
 
 const Clientes: NextPage<Props> = ({ backupClientsPage, routes, clientData }) => {
-    const { featuredImage } = backupClientsPage;
+    const { locale } = useRouter();
+    const navRoutes = routes[locale as keyof typeof routes];
+    const { meta, content, featuredImage } =
+        backupClientsPage[locale as keyof typeof backupClientsPage];
 
     return (
         <Layout
-            pageTitle={'Clientes'}
-            pageDescription={'Clientes Backup AV'}
-            siteTitle={'Clientes Backup AV'}
-            navRoutes={routes}
+            pageTitle={meta.pageTitle}
+            pageDescription={meta.pageDescription}
+            siteTitle={meta.title}
+            navRoutes={navRoutes}
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>Ellos nos han dado su confianza</h1>
-                    <p className={styles.description}>Esperamos poder contar con la tuya</p>
+                    <h1 className={styles.title}>{content.title}</h1>
+                    <p className={styles.description}>{content.description}</p>
                     <div className={styles['button-wrapper']}>
-                        <Button name={'Contacta'} isAnchor url={'/contacta'} />
+                        <Button name={'Contacta'} isAnchor url={`${locale}/contacta`} />
                     </div>
                     <div className={'wrapper'}>
                         <ImageGrid data={clientData} imageType={'color'} />
@@ -68,7 +79,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
         props: {
-            backupClientsPage: { ...clientsPage[0] },
+            backupClientsPage: clientsPage,
             routes,
             clientData: clientData,
         },

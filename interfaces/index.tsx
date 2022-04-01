@@ -25,6 +25,7 @@ export interface IContact extends IMeta {
     map: {
         url: string;
         title: string;
+        name: string;
     };
 }
 

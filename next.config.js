@@ -6,18 +6,26 @@ module.exports = withPWA({
   images: {
       domains: [
           'backup-av-data.vercel.app',
+          'backup-av-data-git-with-locale-freecates.vercel.app',
           'cms.backup-av.com',
       ],
   },
   i18n: {
-      locales: ['es'],
+      locales: ['es', 'ca'],
       defaultLocale: 'es',
   },
   pwa: {
       dest: 'public',
       runtimeCaching,
       disable: process.env.NODE_ENV === 'development',
-      buildExcludes: [/middleware-manifest.json$/]
+      buildExcludes: [
+          /middleware-manifest\.json$/,
+          /_middleware.js$/,
+          /_middleware.js.map$/,
+          /middleware-build-manifest\.js$/,
+          /middleware-react-loadable-manifest\.js$/,
+      ],
   },
+  swcMinify: true,
   reactStrictMode: true,
 })

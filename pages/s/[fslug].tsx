@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Layout from '@components/Layout';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
@@ -7,30 +8,36 @@ import Image from 'next/image';
 import { IRoute } from '@interfaces/index';
 
 interface Props {
-    routes: IRoute[];
-    feature: {
-        id: number;
-        acf: {
-            title: string;
-            featured_list: [{ feature: string }];
-            claim: string;
-            url: string;
-            featured_image: { alt: string; url: string; width: number; height: number };
-        };
-    };
+    routes: { [key: string]: IRoute[] };
+    feature: [
+        {
+            id: number;
+            acf: {
+                title_dev: { [key: string]: string };
+                feature_list_dev: { [key: string]: [{ feature: string }] };
+                claim_dev: { [key: string]: string };
+                url_dev: { [key: string]: string };
+                featured_image: { alt: string; url: string; width: number; height: number };
+            };
+        },
+    ];
+    fslug: string;
 }
 
-const Servicio: NextPage<Props> = ({ feature, routes }) => {
-    const { title, featured_list: featureList, claim, featured_image: featureImage } = feature.acf;
+const Servicio: NextPage<Props> = ({ feature, routes, fslug }) => {
+    const { locale } = useRouter();
+    const navRoutes = routes[locale as keyof typeof routes];
+    const singleFeature = feature.filter((f: { acf: any }) => f.acf.url_dev[locale as keyof typeof f.acf.url_dev] === fslug);
+    const { title_dev, feature_list_dev: featureList, claim_dev, featured_image: featureImage } = singleFeature[0].acf;
     return (
-        <Layout pageTitle={title} pageDescription={title} siteTitle={title} 
-        navRoutes={routes}>
+        <Layout pageTitle={title_dev[locale as keyof typeof title_dev]} pageDescription={title_dev[locale as keyof typeof title_dev]} siteTitle={title_dev[locale as keyof typeof title_dev]} 
+        navRoutes={navRoutes}>
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.description}>{claim}</p>
+                    <h1 className={styles.title}>{title_dev[locale as keyof typeof title_dev]}</h1>
+                    <p className={styles.description}>{claim_dev[locale as keyof typeof claim_dev]}</p>
                     <ul>
-                        {featureList.map((l) => (
+                        {featureList[locale as keyof typeof featureList].map((l) => (
                             <li className={styles.decription} key={l.feature}>
                                 {l.feature}
                             </li>
@@ -56,20 +63,20 @@ const Servicio: NextPage<Props> = ({ feature, routes }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const [feature] = await Promise.all([api.feature.getData()]);
-    const paths = feature.map((f: { acf: any }) => `/servicios/${f.acf.url}`);
+    const paths = feature.map((f: { acf: any }) => `/ca/s/${f.acf.url_dev['ca']}`);
 
-    return { paths, fallback: false };
+    return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const { fslug } = params!;
     const [feature, routes] = await Promise.all([api.feature.getData(), api.routes.getData()]);
-
-    const singleFeature = feature.filter((f: { acf: any }) => f.acf.url === params!.slug);
 
     return {
         props: {
-            feature: { ...singleFeature[0] },
+            feature,
             routes,
+            fslug: fslug,
         },
         revalidate: 1,
     };
