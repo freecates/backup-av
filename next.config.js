@@ -17,7 +17,14 @@ module.exports = withPWA({
       dest: 'public',
       runtimeCaching,
       disable: process.env.NODE_ENV === 'development',
-      buildExcludes: [/middleware-manifest.json$/]
+      buildExcludes: [
+          /middleware-manifest\.json$/,
+          /_middleware.js$/,
+          /_middleware.js.map$/,
+          /middleware-build-manifest\.js$/,
+          /middleware-react-loadable-manifest\.js$/,
+      ],
   },
+  swcMinify: true,
   reactStrictMode: true,
 })
