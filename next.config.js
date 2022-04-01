@@ -6,11 +6,12 @@ module.exports = withPWA({
   images: {
       domains: [
           'backup-av-data.vercel.app',
+          'backup-av-data-git-with-locale-freecates.vercel.app',
           'cms.backup-av.com',
       ],
   },
   i18n: {
-      locales: ['es'],
+      locales: ['es', 'ca'],
       defaultLocale: 'es',
   },
   pwa: {

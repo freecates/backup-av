@@ -13,9 +13,10 @@ type NavProps = {
 };
 
 const Nav: React.FC<NavProps> = ({ navRoutes, title, small, noButton }) => {
-    const home = navRoutes.filter((x) => x.route === '/');
-    const routes = navRoutes.filter((x) => x.route !== '/');
     const router = useRouter();
+    const { locale, locales, asPath } = useRouter();
+    const home = navRoutes.filter((x) => x.route === `/${locale}`);
+    const routes = navRoutes.filter((x) => x.route !== `/${locale}`);
 
     return (
         <nav className={`${styles.nav} ${small ? styles.small : ''}`}>
@@ -37,11 +38,26 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title, small, noButton }) => {
                 ))}
                 <li className={styles['routes-wrapper']}>
                     <ul className={styles.secondary}>
+                        {locales && locales.length
+                            ? locales.map((l, i) => {
+                                  return (
+                                      <li key={i} className={l === locale ? styles.active : ''}>
+                                          <Link href={asPath} locale={l}>
+                                              {l}
+                                          </Link>
+                                      </li>
+                                  );
+                              })
+                            : null}
+                    </ul>
+                </li>
+                <li className={styles['routes-wrapper']}>
+                    <ul className={styles.secondary}>
                         {routes.map((route, index) => (
                             <li
                                 key={index}
                                 className={`${
-                                    router.pathname.includes(route.route) ? styles.active : ''
+                                    route.route.includes(router.pathname) ? styles.active : ''
                                 }`}
                             >
                                 <Link href={route.route}>{route.name}</Link>
@@ -54,9 +70,9 @@ const Nav: React.FC<NavProps> = ({ navRoutes, title, small, noButton }) => {
                         <Button
                             name={'Contacta'}
                             isAnchor
-                            isActive={router.pathname === '/contacta'}
+                            isActive={router.pathname === `/${locale}/contacta`}
                             isSmall
-                            url={'/contacta'}
+                            url={`/${locale}/contacta`}
                             noShadow
                         />
                     </li>

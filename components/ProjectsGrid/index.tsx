@@ -1,9 +1,15 @@
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { IProject } from '@interfaces/index';
 import Image from 'next/image';
 import Share from '@components/Share';
 
 import styles from './ProjectsGrid.module.scss';
+
+const ButtonLabel = {
+    es: 'Comparte',
+    ca: 'Comparteix',
+};
 
 interface ProjectProps {
     data: {
@@ -13,6 +19,7 @@ interface ProjectProps {
 }
 
 const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
+    const { locale } = useRouter();
     const { featured, notFeatured } = data;
     return (
         <div className={styles['portfolio-component']}>
@@ -39,7 +46,7 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               style={{ color: p.acf.color }}
                           >
                               <h2>
-                                  <Link href={`/proyectos/${p.id}/${p.slug}`}>{p.acf.name}</Link>
+                                  <Link href={`${locale}/projects/${p.id}/${p.slug}`}>{p.acf.name}</Link>
                               </h2>
                               <hr style={{ borderColor: p.acf.color }} />
                               <p>{p.acf.description}</p>
@@ -47,10 +54,10 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               <div className={styles['share-wrapper']}>
                                   <Share
                                       buttonColor={p.acf.color}
-                                      label={'Comparte'}
+                                      label={ButtonLabel[locale as keyof typeof ButtonLabel]}
                                       title={p.acf.name}
                                       text={p.acf.description}
-                                      url={`/proyectos/${p.id}/${p.slug}`}
+                                      url={`${locale}/projects/${p.id}/${p.slug}`}
                                   />
                               </div>
                           </div>
@@ -79,16 +86,16 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                           </div>
                           <div className={styles['project-description']}>
                               <h2>
-                                  <Link href={`/proyectos/${p.id}/${p.slug}`}>{p.acf.name}</Link>
+                                  <Link href={`${locale}/projects/${p.id}/${p.slug}`}>{p.acf.name}</Link>
                               </h2>
                               <p style={{ maxWidth: '290px' }}>{p.acf.description}</p>
 
                               <Share
                                   buttonColor={'rgb(241, 9, 9)'}
-                                  label={'Comparte'}
+                                  label={ButtonLabel[locale as keyof typeof ButtonLabel]}
                                   title={p.acf.name}
                                   text={p.acf.description}
-                                  url={`/proyectos/${p.id}/${p.slug}`}
+                                  url={`${locale}/projects/${p.id}/${p.slug}`}
                               />
                           </div>
                       </div>

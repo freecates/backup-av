@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Layout from '@components/Layout';
 import styles from '@styles/Page.module.scss';
 import api from '@libs/api.js';
@@ -8,27 +9,36 @@ import Image from 'next/image';
 const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
 
 interface Props {
-    routes: IRoute[];
+    routes: { [key: string]: IRoute[] };
     contacta: {
-        meta: IContact;
-        featuredImage: { name: string; url: string; width: number; height: number };
+        [key: string]: {
+            meta: IContact;
+            featuredImage: { name: string; url: string; width: number; height: number };
+        };
     };
 }
 
 const Contacta: NextPage<Props> = ({ contacta, routes }) => {
+    const { locale } = useRouter();
     const { title, pageTitle, pageDescription, name, address, phone, web, email, map } =
-        contacta.meta;
-    const { url, name: imageName, width, height } = contacta.featuredImage
+        contacta[locale as keyof typeof contacta].meta;
+    const {
+        url,
+        name: imageName,
+        width,
+        height,
+    } = contacta[locale as keyof typeof contacta].featuredImage;
+    const navRoutes = routes[locale as keyof typeof routes];
     return (
         <Layout
             siteTitle={title}
             pageTitle={pageTitle}
             pageDescription={pageDescription}
-            navRoutes={routes}
+            navRoutes={navRoutes}
         >
             <div className={styles.container}>
                 <main className={styles.main}>
-                    <h1 className={`${ styles.subtitle} ${ styles['no-color'] }`}>
+                    <h1 className={`${styles.subtitle} ${styles['no-color']}`}>
                         <a href={phone.href} title={`¿Qué necesitas? ¡Llámanos!`}>
                             {phone.number}
                         </a>
@@ -38,25 +48,26 @@ const Contacta: NextPage<Props> = ({ contacta, routes }) => {
                         </a>
                     </h1>
                     <p className={styles.description}>
-                        <strong className={'backup'} dangerouslySetInnerHTML={{
-                            __html: name,
-                        }} />
-                        <br />
-                        [{web}]
+                        <strong
+                            className={'backup'}
+                            dangerouslySetInnerHTML={{
+                                __html: name,
+                            }}
+                        />
+                        <br />[{web}]
                         <br />
                         {address}
                     </p>
                     <h2 className={styles.subtitle}>
-                                <a
-                                    href={map.url}
-                                    title={map.title}
-                                    target={'_blank'}
-                                    rel={'noopener noreferrer'}
-                                >
-                                    Ubicación
-                                </a>
-                            </h2>
-                    
+                        <a
+                            href={map.url}
+                            title={map.title}
+                            target={'_blank'}
+                            rel={'noopener noreferrer'}
+                        >
+                            {map.name}
+                        </a>
+                    </h2>
                 </main>
             </div>
             <div className={styles['image-wrapper']}>
@@ -76,10 +87,10 @@ export const getStaticProps: GetStaticProps = async () => {
     const [contacta, routes] = await Promise.all([api.contacta.getData(), api.routes.getData()]);
     return {
         props: {
-            contacta: { ...contacta[0] },
+            contacta,
             routes,
         },
-        revalidate: 60
+        revalidate: 60,
     };
 };
 

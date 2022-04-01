@@ -48,6 +48,13 @@ const api = {
             return data;
         },
     },
+    projectsPage: {
+        async getData() {
+            const response = await fetch(`${staticDataUrl}projects.json`);
+            const data = await response.json();
+            return data;
+        },
+    },
     projectData: {
         async getData() {
             const response = await fetch(`${wpDataUrl}wp/v2/projects?per_page=100`, {

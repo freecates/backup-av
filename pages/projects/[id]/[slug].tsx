@@ -8,15 +8,13 @@ import ProjectsGrid from '@components/ProjectsGrid';
 import api from '@libs/api.js';
 import styles from '@styles/Page.module.scss';
 
-const wpDataUrl = process.env.WORDPRESS_API_URL;
-
 interface Props {
-    routes: IRoute[];
+    routes: { [key: string]: IRoute[] };
     singleProjectData: IProject[];
 }
 
 const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
-    const { isFallback } = useRouter();
+    const { isFallback, locale } = useRouter();
     if (!isFallback && !singleProjectData) {
         return <Custom404 />;
     }
@@ -26,6 +24,7 @@ const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
     if (singleProjectData === null) {
         return <Fallback notFound />;
     }
+    const navRoutes = routes[locale as keyof typeof routes];
     const metaData = singleProjectData[0];
     const author = metaData._embedded.author[0].name;
     const data = { featured: singleProjectData, notFeatured: [] };
@@ -34,7 +33,7 @@ const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
             pageTitle={metaData.acf.name}
             pageDescription={metaData.acf.description}
             siteTitle={'Proyectos Backup AV'}
-            navRoutes={routes}
+            navRoutes={navRoutes}
             cardImg={metaData.acf.img.url}
             withSchema
             id={metaData.id}
@@ -61,9 +60,9 @@ const Project: NextPage<Props> = ({ routes, singleProjectData }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const [projectData] = await Promise.all([api.projectData.getData()]);
-    const paths = projectData.map((f: { id: any; slug: any }) => `/proyectos/${f.id}/${f.slug}`);
+    const paths = projectData.map((f: { id: any; slug: any }) => `/ca/projects/${f.id}/${f.slug}`);
 
-    return { paths, fallback: true };
+    return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
