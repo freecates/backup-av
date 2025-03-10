@@ -1,5 +1,5 @@
 const staticDataUrl = process.env.NEXT_PUBLIC_STATIC_DATA_URL;
-const wpDataUrl = process.env.WORDPRESS_API_URL;
+const wpDataUrl = process.env.WORDPRESS2_API_URL;
 
 const api = {
     backup: {

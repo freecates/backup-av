@@ -33,14 +33,16 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                               backgroundColor: p.acf.color,
                           }}
                       >
+                        {p?.acf?.logo?.url &&
                           <div className={styles['logo-project']}>
                               <Image
-                                  src={`${p.acf.logo.url}`}
-                                  alt={p.acf.logo.alt}
+                                  src={`${p?.acf?.logo?.url}`}
+                                  alt={p?.acf?.logo?.alt}
                                   width='250'
                                   height='150'
                               />
                           </div>
+                        }
                           <div
                               className={styles['featured-project-card']}
                               style={{ color: p.acf.color }}
@@ -75,6 +77,7 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                                       backgroundImage: `url(${p.acf.img.url})`,
                                   }}
                               >
+                            {p?.acf?.logo?.url &&
                                   <Image
                                       src={`${p.acf.logo.url}`}
                                       alt={p.acf.logo.alt}
@@ -82,6 +85,7 @@ const ProjectsGrid: React.FC<ProjectProps> = ({ data }) => {
                                       width='250'
                                       height='150'
                                   />
+                            }
                               </div>
                           </div>
                           <div className={styles['project-description']}>
