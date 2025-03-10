@@ -34,6 +34,7 @@ interface Props {
 
 const Clientes: NextPage<Props> = ({ backupClientsPage, routes, clientData }) => {
     const { locale } = useRouter();
+    console.log(locale)
     const navRoutes = routes[locale as keyof typeof routes];
     const { meta, content, featuredImage } =
         backupClientsPage[locale as keyof typeof backupClientsPage];
@@ -50,7 +51,7 @@ const Clientes: NextPage<Props> = ({ backupClientsPage, routes, clientData }) =>
                     <h1 className={styles.title}>{content.title}</h1>
                     <p className={styles.description}>{content.description}</p>
                     <div className={styles['button-wrapper']}>
-                        <Button name={'Contacta'} isAnchor url={`${locale}/contacta`} />
+                        <Button name={'Contacta'} isAnchor url={`/${locale}/contacta`} />
                     </div>
                     <div className={'wrapper'}>
                         <ImageGrid data={clientData} imageType={'color'} />
